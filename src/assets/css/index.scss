@@ -1,69 +1,64 @@
-$stageWidth:75;
+$stageWidth: 75;
 @function px($px:$stageWidth) {
-    @return $px/$stageWidth+rem;
+  @return $px/$stageWidth+rem;
 }
 
 %flex_justify {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
 @mixin bg($url:'') {
-    background: url($url)no-repeat;
-    background-size: 100%;
+  background: url($url)no-repeat;
+  background-size: 100%;
 }
-
 @mixin text_overflow($line) {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $line;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
 }
-
 @mixin center($width: null, $height: null) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    @if not $width and not $height {
-        transform: translate3d(-50%, -50%, 0);
-    }
-    @else if $width and $height {
-        width: $width;
-        height: $height;
-        margin: -($width / 2) #{0 0} -($height / 2);
-    }
-    @else if not $height {
-        width: $width;
-        margin-left: -($width / 2);
-        transform: translateY(-50%);
-    }
-    @else {
-        height: $height;
-        margin-top: -($height / 2);
-        transform: translateX(-50%);
-    }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @if not $width and not $height {
+    transform: translate3d(-50%, -50%, 0);
+  } @else
+  if $width and $height {
+    width: $width;
+    height: $height;
+    margin: -($width / 2) #{0 0} -($height / 2);
+  } @else
+  if not $height {
+    width: $width;
+    margin-left: -($width / 2);
+    transform: translateY(-50%);
+  } @else {
+    height: $height;
+    margin-top: -($height / 2);
+    transform: translateX(-50%);
+  }
 }
 
-html,
-body,
 #app,
-#app>div {
-    width: 100%;
-    overflow-x: hidden;
-    height: 100%;
-    background: #fff
+#app > div,
+body,
+html {
+  width: 100%;
+  overflow-x: hidden;
+  height: 100%;
+  background: #fff;
 }
 
 a {
-    color: #000;
+  color: #000;
 }
 
 .nodata {
-    text-align: center;
-    font-size: 0.3rem;
-    color: #bbb;
+  text-align: center;
+  font-size: 0.3rem;
+  color: #bbb;
 }
- 

@@ -1,20 +1,34 @@
-import 'whatwg-fetch' // 可以引入fetch来进行Ajax
-
-
-export const fetchUrl = (url, params = {}, type = 'GetSuccess') => async(dispatch, getState) => {
-  dispatch({ type: 'ShowLoading' })
+import axios from 'axios';
+const fetchUrl = (url, config = {}, type = 'GetSuccess') => async (dispatch, getState) => {
+  dispatch({
+    type: 'ShowLoading'
+  })
   try {
-    let res = await fetch(url, params)
-    let json = await res.json()
+    let res = await axios(url, config)
     dispatch({
       type: type,
-      data: josn.data,
+      data: res.data,
     });
-    dispatch({ type: 'HideLoading' })
-    return json
+    dispatch({
+      type: 'HideLoading'
+    })
+    return res.data
   } catch (err) {
-    alert('网络错误')
-    dispatch({ type: 'HideLoading' })
+    //console.log(err.message)
+    dispatch({
+      type: 'HideLoading'
+    })
+    return err.message
   }
+}
 
+const hideLoading = () => (dispatch, getState) => {
+  dispatch({
+    type: 'HideLoading'
+  });
+}
+
+export {
+  fetchUrl,
+  hideLoading
 }

@@ -13,7 +13,7 @@ let isPro = nodeEnv === 'production';
 var pre_fix = isPro ? '[name].[chunkhash]' : '[name]'
 let plugins = [
   new MiniCssExtractPlugin({
-    filename: pre_fix+".css",
+    filename: pre_fix + ".css",
     //chunkFilename: "[id].css"
   }),
   new webpack.optimize.SplitChunksPlugin({
@@ -41,30 +41,29 @@ let plugins = [
   }),
   new webpack.optimize.RuntimeChunkPlugin({
     name: "manifest"
-  }),
-  //new ExtractTextPlugin("styles.css"),
-  new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify(nodeEnv)
-    }
   })
+  //new ExtractTextPlugin("styles.css"),
+  // new webpack.DefinePlugin({
+  //   'process.env': {
+  //     'NODE_ENV': JSON.stringify(nodeEnv)
+  //   }
+  // })
 ]
-let _com = ['manifest','vendor','styles']
+let _com = ['manifest', 'vendor', 'styles']
 let entry = {}
 let files = fs.readdirSync('./src/pages')
-for(let i in files){
+for (let i in files) {
   let key = files[i].split('.')[0]
-  entry[key] = './src/pages/'+files[i]
+  entry[key] = './src/pages/' + files[i]
   plugins.unshift(
     new HtmlWebpackPlugin({
-      filename: key+'.html',
+      filename: key + '.html',
       template: './index.html',
       chunks: _com.concat(key)
     })
   )
 }
 
-let devServer = {}
 let publicPath = './'
 if (isPro) {
   plugins.unshift(
@@ -74,7 +73,9 @@ if (isPro) {
 } else {
   publicPath = 'http://localhost:80/dist/'
   plugins.push(
-    new OpenBrowserPlugin({url:publicPath+'#/'}),
+    new OpenBrowserPlugin({
+      url: publicPath + '#/'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   )
@@ -84,10 +85,10 @@ module.exports = {
   mode: nodeEnv,
   entry: entry,
   output: {
-    filename: pre_fix+'.js',
+    filename: pre_fix + '.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: publicPath,
-    chunkFilename: pre_fix+'.js'
+    chunkFilename: pre_fix + '.js'
   },
   plugins,
   // alias是配置全局的路径入口名称，只要涉及到下面配置的文件路径，可以直接用定义的单个字母表示整个路径
@@ -97,13 +98,18 @@ module.exports = {
       path.join(__dirname, './src')
     ],
     alias: {
-      'actions': 'actions',
-      'components': 'components',
       'css': 'assets/css',
       'js': 'assets/js',
       'images': 'assets/images',
-      'reduers': 'src/reduers'
+      'components': 'components',
+      'containers': 'containers',
+      'actions': 'actions',
+      'reduers': 'src/reduers',
+      'tests': 'src/tests'
     }
+  },
+  externals: {
+    //axios: 'axios'
   },
   module: {
     rules: [{

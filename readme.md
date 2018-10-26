@@ -1,14 +1,16 @@
 ### 技术栈
-  React 16.x React-router4.x  redux  antd 3.x  webpack4.x
-
+  <br>react 16.3.x + react-router 4.x +  redux + antd 3.x  + webpack4.x + babel + sass + axios
 ### Installation 教程
-  1 安装依赖包： npm i
-  2 运行demo :   npm run dev
-  3 本地运行: http://127.0.0.1:80/dist  (webpack-dev-server)
-  4 npm run build(线上打包)
+1. 安装依赖包： cnpm i
+2. 运行demo :   npm run dev
+3. 本地运行: http://127.0.0.1:80/dist  (webpack-dev-server)
+4. npm run build(线上打包)
 
 ### 说明
-  1 提取第三方库
-  2 分离css 文件 并 开启css自动补全
-  3 webpack-dev-server 热加载
-  4 react-router的动态路由加载
+1. 提取样板文件(tree shaking)
+2. Sass预编译，分离css文件，开启css自动补全 (style-loader、css-loader、postcss-loader、sass-loader、node-sass、mini-css-webpack-plugins（或extract-text-webpack-plugin@next）、autoprefixer)
+3. 分离第三方库，webpack配置externals
+4. import()动态路由加载
+5. 热加载（webpack-dev-server）
+6. 入口配置，可扩展（在pages页面增加文件入口，即可扩展为多入口配置，而不需要修改webpack配置）
+7. 单元测试（Jest、react-test-utils、浅渲染、Mocha、Chai）
