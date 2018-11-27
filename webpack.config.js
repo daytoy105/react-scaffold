@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('./plugins/htmlplugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
@@ -41,6 +41,12 @@ let plugins = [
   }),
   new webpack.optimize.RuntimeChunkPlugin({
     name: "manifest"
+  }),
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'template/index.html',
+    chunks: ['manifest', 'styles', 'index'],
+    output: './'
   })
   //new ExtractTextPlugin("styles.css"),
   // new webpack.DefinePlugin({
@@ -54,14 +60,14 @@ let entry = {}
 let files = fs.readdirSync('./src/pages')
 for (let i in files) {
   let key = files[i].split('.')[0]
-  entry[key] = './src/pages/' + files[i]
-  plugins.unshift(
-    new HtmlWebpackPlugin({
-      filename: key + '.html',
-      template: './index.html',
-      chunks: _com.concat(key)
-    })
-  )
+  entry[key] = ['babel-polyfill' ,'./src/pages/' + files[i]]
+  // plugins.unshift(
+  //   new HtmlWebpackPlugin({
+  //     filename: key + '.html',
+  //     template: './index.html',
+  //     chunks: _com.concat(key)
+  //   })
+  // )
 }
 
 let publicPath = './'
